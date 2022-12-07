@@ -16,8 +16,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@UtilityClass
 public class MathUtil {
+
+    public static final MathUtil INSTANCE = new MathUtil();
 
     public final double EXPANDER = Math.pow(2, 24);
 
@@ -254,5 +255,11 @@ public class MathUtil {
         final double average = data.stream().mapToDouble(Number::doubleValue).average().orElse(0.0);
 
         return 20 / average;
+    }
+
+    public double getSpeedXZ(Location from, Location to) {
+        double xDiff = Math.abs(from.getX() - to.getX());
+        double zDiff = Math.abs(from.getZ() - to.getZ());
+        return xDiff > zDiff ? xDiff : zDiff;
     }
 }

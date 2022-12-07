@@ -34,7 +34,7 @@ public final class InvalidF extends PositionCheck {
 
         final boolean step = deltaModulo && lastGround;
 
-        final double modifierJump = MathUtil.getPotionLevel(player, PotionEffectType.JUMP) * 0.1F;
+        final double modifierJump = MathUtil.INSTANCE.getPotionLevel(player, PotionEffectType.JUMP) * 0.1F;
         final double expectedJumpMotion = 0.42F + modifierJump;
 
         final boolean ground = entityPlayer.onGround;

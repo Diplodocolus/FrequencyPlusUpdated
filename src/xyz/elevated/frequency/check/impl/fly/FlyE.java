@@ -40,10 +40,10 @@ public final class FlyE extends PositionCheck {
         final boolean ground = positionUpdate.isOnGround() && !playerData.getPositionManager().getTouchingAir().get();
 
         // Get the jump modifier from the math util
-        final int jumpModifier = MathUtil.getPotionLevel(playerData.getBukkitPlayer(), PotionEffectType.JUMP);
+        final int jumpModifier = MathUtil.INSTANCE.getPotionLevel(playerData.getBukkitPlayer(), PotionEffectType.JUMP);
 
         if (moving && !exempt && !ground && deltaY >= 0.0) {
-            final double distanceGround = lastGroundLocation != null ? MathUtil.getMagnitude(to, lastGroundLocation) : 0.0;
+            final double distanceGround = lastGroundLocation != null ? MathUtil.INSTANCE.getMagnitude(to, lastGroundLocation) : 0.0;
             final double threshold = jumpModifier > 0 ? 5.0 + (Math.pow(jumpModifier + 4.2, 2.0) / 16.0) : 5.0;
 
             // Normally I would avoid using the sqrt as its quite heavy on performance.

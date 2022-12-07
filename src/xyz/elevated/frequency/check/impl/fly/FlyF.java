@@ -16,8 +16,12 @@ public class FlyF extends PacketCheck {
 
     @Override
     public void process(Object object) {
-        if (object instanceof WrappedPlayInFlying && !playerData.getBukkitPlayer().isFlying()) {
-            fail();
+        if (object instanceof WrappedPlayInFlying) {
+            WrappedPlayInFlying packet = (WrappedPlayInFlying) object;
+
+            if (!packet.onGround() && playerData.getActionManager().isFlying() && !playerData.getBukkitPlayer().isOnGround()) {
+                fail("long time noground");
+            }
         }
     }
 }

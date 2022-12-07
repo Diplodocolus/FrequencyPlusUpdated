@@ -2,6 +2,8 @@ package xyz.elevated.frequency;
 
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.permissions.Permission;
+import xyz.elevated.frequency.api.FrequencyPlusAPI;
 import xyz.elevated.frequency.data.type.PlayerDataManager;
 import xyz.elevated.frequency.listener.PlayerListener;
 import xyz.elevated.frequency.processor.ProcessorManager;
@@ -23,6 +25,7 @@ public enum Frequency {
     private final Executor executorAlert = Executors.newSingleThreadExecutor();
     private final Executor executorPacket = Executors.newSingleThreadExecutor();
 
+    public static final FrequencyPlusAPI frequencyPlusAPI = new FrequencyPlusAPI();
     public void start(final FrequencyPlugin plugin) {
         this.plugin = plugin;
 

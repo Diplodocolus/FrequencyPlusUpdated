@@ -166,19 +166,3 @@ public final class BoundingBox {
         return timestamp;
     }
 }
-
-@Getter @Setter
-final class BlockPosition {
-
-    private int x, y, z;
-
-    public BlockPosition(final int x, final int y, final int z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
-
-    public Block getBlock(final World world) {
-        return NmsUtil.getBlock(new Location(world, x, y, z));
-    }
-}

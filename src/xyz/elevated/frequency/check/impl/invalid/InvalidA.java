@@ -29,7 +29,7 @@ public final class InvalidA extends PositionCheck {
         final double velocityY = playerData.getVelocityManager().getMaxVertical();
 
         // Calculate their max Y according to the formula baseJump + (amplifier * 0.1)
-        final int amplifierJump = MathUtil.getPotionLevel(playerData.getBukkitPlayer(), PotionEffectType.JUMP);
+        /* final int amplifierJump = MathUtil.getPotionLevel(playerData.getBukkitPlayer(), PotionEffectType.JUMP);
 
         final double motionY = NmsUtil.getMotion(playerData).getY();
         final double threshold = amplifierJump > 0 ? 0.42 + amplifierJump * 0.1 : 0.42;
@@ -40,6 +40,6 @@ public final class InvalidA extends PositionCheck {
         // If the player is ascending higher than the threshold and has no velocity
         if (velocityY == 0.0 && deltaY > threshold && !exempt && motionY == 0.0) {
             fail();
-        }
+        } */
     }
 }

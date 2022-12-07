@@ -31,10 +31,10 @@ public final class AutoClickerG extends PacketCheck {
 
             // Sample size is assigned to 15
             if (samples.size() == 15) {
-                final Pair<List<Double>, List<Double>> outlierPair = MathUtil.getOutliers(samples);
+                final Pair<List<Double>, List<Double>> outlierPair = MathUtil.INSTANCE.getOutliers(samples);
 
-                final double skewness = MathUtil.getSkewness(samples);
-                final double kurtosis = MathUtil.getKurtosis(samples);
+                final double skewness = MathUtil.INSTANCE.getSkewness(samples);
+                final double kurtosis = MathUtil.INSTANCE.getKurtosis(samples);
                 final double outliers = outlierPair.getX().size() + outlierPair.getY().size();
 
                 // See if skewness and kurtosis is exceeding a specific limit.

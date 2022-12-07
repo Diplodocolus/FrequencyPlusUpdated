@@ -3,6 +3,7 @@ package xyz.elevated.frequency.data;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.server.v1_8_R3.AxisAlignedBB;
+import net.minecraft.server.v1_8_R3.Block;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -54,6 +55,7 @@ public final class PlayerData {
     private final PositionManager positionManager = new PositionManager(this);
     private final ActionManager actionManager = new ActionManager(this);
     private final ConnectionManager connectionManager = new ConnectionManager(this);
+    private final BlockManager blockManager = new BlockManager(this);
     private final VelocityManager velocityManager = new VelocityManager();
 
     public PlayerData(final Player bukkitPlayer) {

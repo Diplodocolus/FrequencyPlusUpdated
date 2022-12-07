@@ -31,10 +31,10 @@ public final class AutoClickerC extends PacketCheck {
 
             //Sample size is adjustable. Can flag as low as 12CPS or lower depending on clicker patterns.
             if (samples.size() == 15) {
-                final Pair<List<Double>, List<Double>> outlierPair = MathUtil.getOutliers(samples);
+                final Pair<List<Double>, List<Double>> outlierPair = MathUtil.INSTANCE.getOutliers(samples);
 
-                final double skewness = MathUtil.getSkewness(samples);
-                final double kurtosis = MathUtil.getKurtosis(samples);
+                final double skewness = MathUtil.INSTANCE.getSkewness(samples);
+                final double kurtosis = MathUtil.INSTANCE.getKurtosis(samples);
                 final double outliers = outlierPair.getX().size() + outlierPair.getY().size();
 
                 // See if skewness and kurtosis is exceeding a specific limit.

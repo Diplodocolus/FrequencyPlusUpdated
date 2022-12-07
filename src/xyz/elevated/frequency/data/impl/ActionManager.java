@@ -28,6 +28,12 @@ public final class ActionManager {
     private int lastAttack = 0, lastDig = 0, lastFlying = 0,
             lastDelayedFlying = 0, lastTeleport = 0, movements = 0, lastPlace = 0;
 
+    public boolean isFlying() {
+        if (lastDelayedFlying == 0 && lastFlying == 0 && movements >= 7) {
+            return true;
+        }
+        return false;
+    }
     public void onArmAnimation() {
         this.swinging.set(true);
 
@@ -38,7 +44,7 @@ public final class ActionManager {
         }
 
         if (clicks.size() > 5) {
-            final double cps = MathUtil.getCps(clicks);
+            final double cps = MathUtil.INSTANCE.getCps(clicks);
             final double rate = cps * movements;
 
             playerData.getCps().set(cps);

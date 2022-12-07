@@ -29,12 +29,14 @@ public final class AimAssistE extends RotationCheck {
         final float deltaPitch = rotationUpdate.getDeltaPitch();
 
         // Grab the gcd using an expander.
-        final double divisorYaw = MathUtil.getGcd((long) (deltaYaw * MathUtil.EXPANDER), (long) (lastDeltaYaw * MathUtil.EXPANDER));
-        final double divisorPitch = MathUtil.getGcd((long) (deltaPitch * MathUtil.EXPANDER), (long) (lastDeltaPitch * MathUtil.EXPANDER));
+        final double divisorYaw = MathUtil.INSTANCE
+                .getGcd((long) (deltaYaw * MathUtil.INSTANCE.EXPANDER), (long) (lastDeltaYaw * MathUtil.INSTANCE.EXPANDER));
+        final double divisorPitch = MathUtil.INSTANCE
+                .getGcd((long) (deltaPitch * MathUtil.INSTANCE.EXPANDER), (long) (lastDeltaPitch * MathUtil.INSTANCE.EXPANDER));
 
         // Get the constant for both rotation updates by dividing by the expander
-        final double constantYaw = divisorYaw / MathUtil.EXPANDER;
-        final double constantPitch = divisorPitch / MathUtil.EXPANDER;
+        final double constantYaw = divisorYaw / MathUtil.INSTANCE.EXPANDER;
+        final double constantPitch = divisorPitch / MathUtil.INSTANCE.EXPANDER;
 
         // Get the estimated mouse delta from the constant
         final double currentX = deltaYaw / constantYaw;

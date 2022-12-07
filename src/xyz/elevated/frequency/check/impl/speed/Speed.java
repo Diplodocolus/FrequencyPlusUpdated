@@ -56,16 +56,16 @@ public final class Speed extends PositionCheck {
         final boolean exempt = this.isExempt(ExemptType.TPS, ExemptType.TELEPORTING);
 
         // Properly calculate max jump for jump threshold
-        final int modifierJump = MathUtil.getPotionLevel(player, PotionEffectType.JUMP);
+        final int modifierJump = MathUtil.INSTANCE.getPotionLevel(player, PotionEffectType.JUMP);
 
         /*
          * How minecraft calculates speed increase. We cast as a float because this is what the client does.
          * MCP just prints the casted float as a double. 0.2 is the effect modifier.
          */
-        attributeSpeed += MathUtil.getPotionLevel(player, PotionEffectType.SPEED) * (float)0.2 * attributeSpeed;
+        attributeSpeed += MathUtil.INSTANCE.getPotionLevel(player, PotionEffectType.SPEED) * (float)0.2 * attributeSpeed;
 
         //How minecraft calculates slowness. 0.15 is the effect modifier.
-        attributeSpeed += MathUtil.getPotionLevel(player, PotionEffectType.SLOW) * (float)-.15 * attributeSpeed;
+        attributeSpeed += MathUtil.INSTANCE.getPotionLevel(player, PotionEffectType.SLOW) * (float)-.15 * attributeSpeed;
 
         if (onGround) {
             blockSlipperiness *= 0.91f;
@@ -104,7 +104,7 @@ public final class Speed extends PositionCheck {
             buffer = Math.min(500, buffer + 10); //We do this to prevent integer overflow.
 
             if (buffer > 40) {
-                fail();
+                fail("player speed is faster than normal, speed=(" + movementSpeed + "), buffer=(" + buffer + ")");
 
                 buffer /= 2;
             }

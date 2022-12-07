@@ -34,10 +34,10 @@ public final class AutoClickerF extends PacketCheck {
 
             // Once the samples size is equal to 15
             if (samples.size() == 15) {
-                final Pair<List<Double>, List<Double>> outlierPair = MathUtil.getOutliers(samples);
+                final Pair<List<Double>, List<Double>> outlierPair = MathUtil.INSTANCE.getOutliers(samples);
 
                 // Get the deviation outliers the the cps from the math util
-                final double deviation = MathUtil.getStandardDeviation(samples);
+                final double deviation = MathUtil.INSTANCE.getStandardDeviation(samples);
                 final double outliers = outlierPair.getX().size() + outlierPair.getY().size();
                 final double cps = playerData.getCps().get();
 

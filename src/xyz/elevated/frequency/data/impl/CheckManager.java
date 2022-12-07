@@ -3,6 +3,7 @@ package xyz.elevated.frequency.data.impl;
 import com.google.common.collect.ClassToInstanceMap;
 import com.google.common.collect.ImmutableClassToInstanceMap;
 import lombok.Getter;
+import org.bukkit.entity.Player;
 import xyz.elevated.frequency.check.Check;
 import xyz.elevated.frequency.check.impl.aimassist.*;
 import xyz.elevated.frequency.check.impl.aimassist.cinematic.Cinematic;
@@ -19,6 +20,8 @@ import xyz.elevated.frequency.check.impl.jesus.JesusA;
 import xyz.elevated.frequency.check.impl.killaura.*;
 import xyz.elevated.frequency.check.impl.pingspoof.PingSpoofA;
 import xyz.elevated.frequency.check.impl.pingspoof.PingSpoofB;
+import xyz.elevated.frequency.check.impl.scaffold.ScaffoldA;
+import xyz.elevated.frequency.check.impl.scaffold.ScaffoldB;
 import xyz.elevated.frequency.check.impl.speed.Speed;
 import xyz.elevated.frequency.check.impl.timer.TimerA;
 import xyz.elevated.frequency.data.PlayerData;
@@ -28,8 +31,14 @@ import java.util.Collection;
 @Getter
 public final class CheckManager {
     private final ClassToInstanceMap<Check> checks;
+    public static CheckManager INSTANCE;
+
+    public static CheckManager getManager(Player player) {
+        return new CheckManager(new PlayerData(player));
+    }
 
     public CheckManager(final PlayerData playerData) {
+        INSTANCE = this;
         checks = new ImmutableClassToInstanceMap.Builder<Check>()
                 .put(KillAuraA.class, new KillAuraA(playerData))
                 .put(KillAuraB.class, new KillAuraB(playerData))
@@ -62,6 +71,7 @@ public final class CheckManager {
                 .put(BadPacketsO.class, new BadPacketsO(playerData))
                 .put(BadPacketsP.class, new BadPacketsP(playerData))
                 .put(BadPacketsQ.class, new BadPacketsQ(playerData))
+                .put(BadPacketsR.class, new BadPacketsR(playerData))
                 .put(InvalidA.class, new InvalidA(playerData))
                 .put(InvalidB.class, new InvalidB(playerData))
                 .put(InvalidC.class, new InvalidC(playerData))
@@ -90,6 +100,8 @@ public final class CheckManager {
                 .put(InvalidDirection.class, new InvalidDirection(playerData))
                 .put(PingSpoofA.class, new PingSpoofA(playerData))
                 .put(PingSpoofB.class, new PingSpoofB(playerData))
+                .put(ScaffoldA.class, new ScaffoldA(playerData))
+                .put(ScaffoldB.class, new ScaffoldB(playerData))
                 .build();
     }
 

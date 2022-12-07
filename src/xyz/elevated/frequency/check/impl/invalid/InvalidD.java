@@ -35,8 +35,8 @@ public final class InvalidD extends PacketCheck {
                 final double posZ = wrapper.getZ();
 
                 // Calculate the basic horizontal distance and the acceleration
-                final double horizontalDistance = MathUtil.magnitude(posX - lastPosX, posZ - lastPosZ);
-                final double acceleration = Math.abs(horizontalDistance - lastHorizontalDistance);
+                //final double horizontalDistance = MathUtil.magnitude(posX - lastPosX, posZ - lastPosZ);
+                //final double acceleration = Math.abs(horizontalDistance - lastHorizontalDistance);
 
                 /*
                 * The theory is, when the player attacks an entity they get slowed down by 0.6. Here we're simply checking
@@ -64,21 +64,21 @@ public final class InvalidD extends PacketCheck {
                     * The check only is valid if the player is sprinting, so we also need to make sure that the player'ss
                     * sprinting status are true, or the check again is not going to work as expected.
                      */
-                    final boolean accelerated = acceleration < 1e-04 && horizontalDistance > lastHorizontalDistance * 0.99;
+                    //final boolean accelerated = acceleration < 1e-04 && horizontalDistance > lastHorizontalDistance * 0.99;
                     final boolean sprinting = playerData.getSprinting().get();
 
-                    if (accelerated && sprinting) {
+                    /* if (accelerated && sprinting) {
                         buffer += 0.25;
 
                         if (buffer > 1.25) fail();
                     } else {
                         buffer = Math.max(buffer - 0.25, 0);
-                    }
+                    } */
 
                     attacked = false;
                 }
 
-                lastHorizontalDistance = horizontalDistance;
+                //lastHorizontalDistance = horizontalDistance;
                 lastPosX = posX;
                 lastPosZ = posZ;
             }
