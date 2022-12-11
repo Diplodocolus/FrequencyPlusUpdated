@@ -31,7 +31,7 @@ public final class AutoClickerE extends PacketCheck {
             if (valid) samples.add(movements);
 
             if (samples.size() == 20) {
-                final Pair<List<Double>, List<Double>> outlierPair = MathUtil.INSTANCE.getOutliers(samples);
+                final Pair<List<Double>, List<Double>> outlierPair = MathUtil.getOutliers(samples);
 
                 final int outliers = outlierPair.getX().size() + outlierPair.getY().size();
                 final int duplicates = MathUtil.getDuplicates(samples);

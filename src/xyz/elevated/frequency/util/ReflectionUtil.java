@@ -1,6 +1,6 @@
 package xyz.elevated.frequency.util;
 
-import lombok.UtilityClass;
+import lombok.experimental.UtilityClass;
 import lombok.val;
 import net.minecraft.server.v1_8_R3.Packet;
 import java.lang.reflect.Field;

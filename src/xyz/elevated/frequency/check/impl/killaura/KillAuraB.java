@@ -37,7 +37,7 @@ public final class KillAuraB extends RotationCheck {
             final double averageYaw = samplesYaw.stream().mapToDouble(d -> d).average().orElse(0.0);
             final double averagePitch = samplesPitch.stream().mapToDouble(d -> d).average().orElse(0.0);
 
-            final double deviation = MathUtil.INSTANCE.getStandardDeviation(samplesPitch);
+            final double deviation = MathUtil.getStandardDeviation(samplesPitch);
             final double averageDelta = Math.abs(averagePitch - lastAverage);
 
             if (deviation > 6.f && averageDelta > 1.5f && averageYaw < 30.d) {

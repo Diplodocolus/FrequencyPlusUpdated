@@ -1,7 +1,7 @@
 package xyz.elevated.frequency.util;
 
 import io.netty.channel.ChannelPipeline;
-import lombok.UtilityClass;
+import lombok.experimental.UtilityClass;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Location;
 import org.bukkit.World;

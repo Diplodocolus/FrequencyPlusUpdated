@@ -25,16 +25,16 @@ public final class AimAssistC extends RotationCheck {
         // Make sure the rotation is valid and that both of the rotations are not big
         if (deltaYaw > 0.0 && deltaPitch > 0.0 && deltaYaw < 30.d && deltaPitch < 20.d) {
             // Expand the current and the previous yaw
-            final long expandedYaw = (long) (deltaYaw * MathUtil.INSTANCE.EXPANDER);
-            final long previousExpandedYaw = (long) (lastDeltaYaw * MathUtil.INSTANCE.EXPANDER);
+            final long expandedYaw = (long) (deltaYaw * MathUtil.EXPANDER);
+            final long previousExpandedYaw = (long) (lastDeltaYaw * MathUtil.EXPANDER);
 
             // Expand the current and the previous pitch
-            final long expandedPitch = (long) (deltaPitch * MathUtil.INSTANCE.EXPANDER);
-            final long previousExpandedPitch = (long) (lastDeltaPitch * MathUtil.INSTANCE.EXPANDER);
+            final long expandedPitch = (long) (deltaPitch * MathUtil.EXPANDER);
+            final long previousExpandedPitch = (long) (lastDeltaPitch * MathUtil.EXPANDER);
 
             // Get the divisors of the yaw and the pitch
-            final double divisorPitch = MathUtil.INSTANCE.getGcd(expandedPitch, previousExpandedPitch);
-            final double divisorYaw = MathUtil.INSTANCE.getGcd(expandedYaw, previousExpandedYaw);
+            final double divisorPitch = MathUtil.getGcd(expandedPitch, previousExpandedPitch);
+            final double divisorYaw = MathUtil.getGcd(expandedYaw, previousExpandedYaw);
 
             // Make sure the player isn't using cinematic camera
             final boolean cinematic = playerData.getCinematic().get();

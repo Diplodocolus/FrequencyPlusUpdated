@@ -33,7 +33,7 @@ public final class FlyD extends PositionCheck {
         final double deltaY = to.getY() - from.getY();
         final double deltaZ = to.getZ() - from.getZ();
 
-        final int modifierJump = MathUtil.INSTANCE.getPotionLevel(playerData.getBukkitPlayer(), PotionEffectType.JUMP);
+        final int modifierJump = MathUtil.getPotionLevel(playerData.getBukkitPlayer(), PotionEffectType.JUMP);
 
         final double offset = MathUtil.magnitude(deltaX, deltaZ);
         final double threshold = modifierJump > 0 ? 1.55220341408 + (Math.pow(modifierJump + 4.2, 2D) / 16D) : 1.25220341408;

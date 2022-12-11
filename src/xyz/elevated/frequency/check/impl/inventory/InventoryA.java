@@ -33,10 +33,10 @@ public final class InventoryA extends PacketCheck {
 
             // Once the sample size is 5
             if (samples.size() == 5) {
-                final Pair<List<Double>, List<Double>> outlierPair = MathUtil.INSTANCE.getOutliers(samples);
+                final Pair<List<Double>, List<Double>> outlierPair = MathUtil.getOutliers(samples);
 
                 // Get the outliers and the deviation from the math utility
-                final double deviation = MathUtil.INSTANCE.getStandardDeviation(samples);
+                final double deviation = MathUtil.getStandardDeviation(samples);
                 final double outliers = outlierPair.getX().size() + outlierPair.getY().size();
 
                 // If the deviation is low and there are no outliers, flag

@@ -62,10 +62,10 @@ public final class AimAssistD extends RotationCheck {
 
     // Get the GCD from the stored rotations and return a result whenever applied isn't false.
     private long getDeviation(final float deltaPitch) {
-        final long expandedPitch = (long) (deltaPitch * MathUtil.INSTANCE.EXPANDER);
-        final long previousExpandedPitch = (long) (lastDeltaPitch * MathUtil.INSTANCE.EXPANDER);
+        final long expandedPitch = (long) (deltaPitch * MathUtil.EXPANDER);
+        final long previousExpandedPitch = (long) (lastDeltaPitch * MathUtil.EXPANDER);
 
-        final long result = applied ? MathUtil.INSTANCE.getGcd(expandedPitch, previousExpandedPitch) : 0;
+        final long result = applied ? MathUtil.getGcd(expandedPitch, previousExpandedPitch) : 0;
 
         if (applied) {
             applied = false;

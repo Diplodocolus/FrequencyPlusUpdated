@@ -32,9 +32,9 @@ public final class AutoClickerB extends PacketCheck {
 
             if (samples.size() == 10) {
                 // Get the standard deviation skewness and kurtosis from math utils
-                final double deviation = MathUtil.INSTANCE.getStandardDeviation(samples);
-                final double skewness = MathUtil.INSTANCE.getSkewness(samples);
-                final double kurtosis = MathUtil.INSTANCE.getKurtosis(samples);
+                final double deviation = MathUtil.getStandardDeviation(samples);
+                final double skewness = MathUtil.getSkewness(samples);
+                final double kurtosis = MathUtil.getKurtosis(samples);
 
                 // If the statistic values are the same for two sample rotations, flag
                 if (deviation == lastDeviation && skewness == lastSkewness && kurtosis == lastKurtosis) {

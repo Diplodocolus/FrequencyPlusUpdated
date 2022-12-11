@@ -49,7 +49,7 @@ public final class ActionManager {
         }
 
         if (clicks.size() > 5) {
-            final double cps = MathUtil.INSTANCE.getCps(clicks);
+            final double cps = MathUtil.getCps(clicks);
             final double rate = cps * movements;
 
             playerData.getCps().set(cps);

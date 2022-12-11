@@ -1,6 +1,7 @@
 package xyz.elevated.frequency.util;
 
 import com.google.common.collect.Lists;
+import lombok.experimental.UtilityClass;
 import net.minecraft.server.v1_8_R3.MathHelper;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -15,9 +16,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@UtilityClass
 public class MathUtil {
-
-    public static final MathUtil INSTANCE = new MathUtil();
 
     public final double EXPANDER = Math.pow(2, 24);
 
