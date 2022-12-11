@@ -24,7 +24,7 @@ public final class InvalidC extends PositionCheck {
         final Location from = positionUpdate.getFrom();
         final Location to = positionUpdate.getTo();
 
-        final EntityPlayer entityPlayer = NmsUtil.getEntityPlayer(playerData);
+        final EntityPlayer entityPlayer = NmsUtil.INSTANCE.getEntityPlayer(playerData);
 
         final double deltaX = to.getX() - from.getZ();
         final double deltaZ = to.getZ() - from.getZ();
@@ -41,7 +41,7 @@ public final class InvalidC extends PositionCheck {
                 buffer += 0.5;
 
                 if (buffer > 1.5) {
-                    fail();
+                    fail("tried to HKnockback, offset=(" + offset + "), velocity=(" + velocity + "), ticks=(" + ticks + "), buffer=(" + buffer + ")");
                 }
             } else {
                 buffer = Math.max(buffer - 0.025, 0);

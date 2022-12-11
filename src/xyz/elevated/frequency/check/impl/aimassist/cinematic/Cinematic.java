@@ -48,8 +48,8 @@ public final class Cinematic extends RotationCheck {
 
         if (yawSamples.size() == 20 && pitchSamples.size() == 20) {
             // Get the cerberus/positive graph of the sample-lists
-            final GraphUtil.GraphResult resultsYaw = GraphUtil.getGraph(yawSamples);
-            final GraphUtil.GraphResult resultsPitch = GraphUtil.getGraph(pitchSamples);
+            final GraphUtil.GraphResult resultsYaw = GraphUtil.INSTANCE.getGraph(yawSamples);
+            final GraphUtil.GraphResult resultsPitch = GraphUtil.INSTANCE.getGraph(pitchSamples);
 
             // Negative values
             final int negativesYaw = resultsYaw.getNegatives();
@@ -66,9 +66,10 @@ public final class Cinematic extends RotationCheck {
 
             yawSamples.clear();
             pitchSamples.clear();
+            playerData.getCinematic().set(cinematic);
+        } else {
+            playerData.getCinematic().set(cinematic);
         }
-
-        playerData.getCinematic().set(cinematic);
 
         this.lastDeltaYaw = deltaYaw;
         this.lastDeltaPitch = deltaPitch;

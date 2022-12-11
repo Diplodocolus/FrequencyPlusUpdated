@@ -36,7 +36,8 @@ public enum ExemptType {
     /**
      * Exempts the player from a certain check if the chunk he's currently in isn't loaded
      */
-    CHUNK(playerData -> !playerData.getBukkitPlayer().getWorld().isChunkLoaded(playerData.getPositionUpdate().get().getTo().getBlockX() << 4, playerData.getPositionUpdate().get().getTo().getBlockZ() << 4)),
+    CHUNK(playerData -> !playerData.getBukkitPlayer().getWorld().isChunkLoaded(playerData.getPositionUpdate().get().getTo().getBlockX() << 4,
+            playerData.getPositionUpdate().get().getTo().getBlockZ() << 4)),
 
     /**
      * Returns true if the player has had any velocity changes in the past 9000ms
@@ -54,5 +55,9 @@ public enum ExemptType {
 
     ExemptType(final Function<PlayerData, Boolean> exception) {
         this.exception = exception;
+    }
+
+    public Function<PlayerData, Boolean> getException() {
+        return exception;
     }
 }

@@ -2,6 +2,7 @@ package xyz.elevated.frequency.check.impl.fly;
 
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import org.bukkit.Location;
+import xyz.elevated.frequency.FrequencyPlugin;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PositionCheck;
 import xyz.elevated.frequency.data.PlayerData;
@@ -19,12 +20,15 @@ public final class FlyA extends PositionCheck {
 
     @Override
     public void process(final PositionUpdate positionUpdate) {
+        if (!FrequencyPlugin.getFrequencyConfig().getBoolean("checks.fly.enable")) {
+            return;
+        }
         // Get the locations from the position update
         final Location from = positionUpdate.getFrom();
         final Location to = positionUpdate.getTo();
 
         // Get the entity player from the nms util
-        final EntityPlayer entityPlayer = NmsUtil.getEntityPlayer(playerData);
+        final EntityPlayer entityPlayer = NmsUtil.INSTANCE.getEntityPlayer(playerData);
 
         // If the posY of the player is modulo by (1/64) he's on ground.
         final boolean clientGround = entityPlayer.onGround;
@@ -33,7 +37,11 @@ public final class FlyA extends PositionCheck {
         final boolean illegal = playerData.getPositionManager().getTouchingClimbable().get() || playerData.getPositionManager().getTouchingLiquid().get();
 
         if (!illegal && clientGround != serverGround) {
-            if (++buffer > 4) fail();
+            if (++buffer > 4) {
+                fail("tried to illegal ground, clientGround=(" + clientGround + "), serverGround=(" + serverGround + "), isNotSame=(" +
+                        (clientGround != serverGround) + ")");
+                lagback(FrequencyPlugin.getFrequencyConfig().getBoolean("checks.fly.lagback"));
+            }
         } else {
             buffer = 0;
         }

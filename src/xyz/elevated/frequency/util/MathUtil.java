@@ -1,7 +1,6 @@
 package xyz.elevated.frequency.util;
 
 import com.google.common.collect.Lists;
-import lombok.experimental.UtilityClass;
 import net.minecraft.server.v1_8_R3.MathHelper;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

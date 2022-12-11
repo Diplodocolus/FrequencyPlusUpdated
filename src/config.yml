@@ -1,0 +1,65 @@
+checks:
+
+  badpackets:
+
+    enable: true
+
+    cancel: true
+
+    protocol:
+
+      check_protocol_1: true
+
+      check_protocol_2: true
+
+    modules:
+
+      switch: true
+
+  fly:
+
+    enable: true
+
+    lagback: true
+
+    modules:
+
+      v_fly:
+
+        check_protocol1: true
+
+        check_protocol2: true
+
+      horizonboost: true
+
+      longtime_noground: true
+
+      fake_ground: true
+
+  invalid:
+
+    position:
+
+      enable: true
+
+      lagback: true
+
+    direction:
+
+      enable: true
+
+      lagback: true
+
+  speed:
+
+    enable: true
+
+    lagback: false
+
+    max_speed: 1.0
+
+  timer:
+
+    enable: true
+
+    allowance_addition: 50

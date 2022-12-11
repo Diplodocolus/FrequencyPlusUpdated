@@ -1,6 +1,6 @@
 package xyz.elevated.frequency.check.impl.fly;
 
-import lombok.Builder;
+import xyz.elevated.frequency.FrequencyPlugin;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.check.type.PositionCheck;
@@ -16,11 +16,16 @@ public class FlyF extends PacketCheck {
 
     @Override
     public void process(Object object) {
+        if (!FrequencyPlugin.getFrequencyConfig().getBoolean("checks.fly.enable") &&
+                !FrequencyPlugin.getFrequencyConfig().getBoolean("checks.fly.modules.fakeground")) {
+            return;
+        }
         if (object instanceof WrappedPlayInFlying) {
             WrappedPlayInFlying packet = (WrappedPlayInFlying) object;
 
             if (!packet.onGround() && playerData.getActionManager().isFlying() && !playerData.getBukkitPlayer().isOnGround()) {
                 fail("long time noground");
+                lagback(FrequencyPlugin.getFrequencyConfig().getBoolean("checks.fly.lagback"));
             }
         }
     }

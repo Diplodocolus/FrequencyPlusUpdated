@@ -1,15 +1,17 @@
 package xyz.elevated.frequency.exempt;
 
-import lombok.RequiredArgsConstructor;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.exempt.type.ExemptType;
 
 import java.util.Arrays;
 import java.util.function.Function;
 
-@RequiredArgsConstructor
 public final class ExemptManager {
     private final PlayerData playerData;
+
+    public ExemptManager(PlayerData playerData) {
+        this.playerData = playerData;
+    }
 
     /**
      *

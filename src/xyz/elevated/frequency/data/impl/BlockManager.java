@@ -1,8 +1,6 @@
 package xyz.elevated.frequency.data.impl;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -20,6 +18,19 @@ public class BlockManager {
     private Location blockLoc, playerLoc;
     private ItemStack playerHandBlock;
     private boolean onGround;
+
+    public BlockManager(PlayerData playerData, float yaw, float pitch, float lastYaw, float lastPitch, Location blockLoc, Location playerLoc,
+                        ItemStack playerHandBlock, boolean onGround) {
+        this.playerData = playerData;
+        this.yaw = yaw;
+        this.pitch = pitch;
+        this.lastYaw = lastYaw;
+        this.lastPitch = lastPitch;
+        this.blockLoc = blockLoc;
+        this.playerLoc = playerLoc;
+        this.playerHandBlock = playerHandBlock;
+        this.onGround = onGround;
+    }
 
     public BlockManager(final PlayerData playerData) {
         this.playerData = playerData;

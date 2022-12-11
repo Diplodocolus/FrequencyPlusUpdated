@@ -120,4 +120,8 @@ public class TickManager implements Runnable {
             }
         });
     }
+
+    public int getTicks() {
+        return ticks;
+    }
 }

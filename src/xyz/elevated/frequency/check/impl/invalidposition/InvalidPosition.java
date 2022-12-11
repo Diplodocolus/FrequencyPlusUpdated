@@ -1,6 +1,7 @@
 package xyz.elevated.frequency.check.impl.invalidposition;
 
 import org.bukkit.Location;
+import xyz.elevated.frequency.FrequencyPlugin;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PositionCheck;
 import xyz.elevated.frequency.data.PlayerData;
@@ -19,6 +20,9 @@ public final class InvalidPosition extends PositionCheck {
 
     @Override
     public void process(final PositionUpdate positionUpdate) {
+        if (!FrequencyPlugin.getFrequencyConfig().getBoolean("checks.invalid.position.enable")) {
+            return;
+        }
         final Location from = positionUpdate.getFrom();
         final Location to = positionUpdate.getTo();
 
@@ -38,8 +42,8 @@ public final class InvalidPosition extends PositionCheck {
             buffer += 0.5;
 
             if (buffer > 1.5) {
-                fail();
-
+                fail("stepped 1+ block, accel=(" + acceleration + "), hor=(" + horizontalDistance + "), buffer=(" + buffer + "), deltaY=(" + deltaY + ")");
+                lagback(FrequencyPlugin.getFrequencyConfig().getBoolean("checks.invalid.position.lagback"));
                 buffer = 0;
             }
         } else {

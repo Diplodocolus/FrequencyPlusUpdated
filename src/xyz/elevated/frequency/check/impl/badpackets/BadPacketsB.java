@@ -1,5 +1,6 @@
 package xyz.elevated.frequency.check.impl.badpackets;
 
+import xyz.elevated.frequency.FrequencyPlugin;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PostCheck;
 import xyz.elevated.frequency.data.PlayerData;
@@ -14,6 +15,10 @@ public final class BadPacketsB extends PostCheck {
 
     @Override
     public void process(final Object object) {
+        if (!FrequencyPlugin.getFrequencyConfig().getBoolean("checks.badpackets.protocol.check_protocol1") &&
+                !FrequencyPlugin.getFrequencyConfig().getBoolean("checks.badpackets.enable")) {
+            return;
+        }
         final boolean post = this.isPost(object);
 
         if (post) fail();

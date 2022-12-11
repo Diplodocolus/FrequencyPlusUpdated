@@ -1,6 +1,7 @@
 package xyz.elevated.frequency.check.impl.timer;
 
 import xyz.elevated.frequency.Frequency;
+import xyz.elevated.frequency.FrequencyPlugin;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.PlayerData;
@@ -21,6 +22,9 @@ public final class TimerA extends PacketCheck {
 
     @Override
     public void process(final Object object) {
+        if (!FrequencyPlugin.getFrequencyConfig().getBoolean("checks.timer.enable")) {
+            return;
+        }
         final boolean flying = object instanceof WrappedPlayInFlying;
 
         if (flying) {
@@ -66,11 +70,13 @@ public final class TimerA extends PacketCheck {
                     * a balance / allowance check. We're increasing the allowance with the expected amount of 50,
                     * and we're subtracting from it the actual delay received. This will act as our "buffer" system.
                      */
-                    allowance += 50;
+                    allowance += FrequencyPlugin.getFrequencyConfig().getLong("checks.timer.allowance_addition");
                     allowance -= delay;
 
                     // Our previous threshold can act as one here too.
-                    if (allowance > Math.floor(threshold)) fail();
+                    if (allowance > Math.floor(threshold)) {
+                        fail("higher allowance, allowance=(" + allowance + ")");
+                    }
                 }
 
                 else {

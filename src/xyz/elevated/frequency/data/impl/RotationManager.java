@@ -1,14 +1,15 @@
 package xyz.elevated.frequency.data.impl;
 
-import lombok.RequiredArgsConstructor;
 import xyz.elevated.frequency.check.type.RotationCheck;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.update.RotationUpdate;
 
-@RequiredArgsConstructor
 public final class RotationManager {
     private final PlayerData playerData;
 
+    public RotationManager(PlayerData playerData) {
+        this.playerData = playerData;
+    }
     private float lastYaw, lastPitch;
 
     public void handle(final float yaw, final float pitch) {

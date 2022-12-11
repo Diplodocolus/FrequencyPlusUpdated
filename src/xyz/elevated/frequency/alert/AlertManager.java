@@ -1,7 +1,6 @@
 package xyz.elevated.frequency.alert;
 
 import com.google.common.collect.Lists;
-import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import xyz.elevated.frequency.Frequency;
@@ -15,12 +14,13 @@ import java.util.List;
 
 import static org.bukkit.ChatColor.*;
 
-@RequiredArgsConstructor
 public final class AlertManager {
     private final Check<?> check;
 
-    private final String broadcast = ColorUtil.format("&8[&7FQ&8] &a%s &7was found using an unfair advantage and was removed from the network.");
-    public static final String ALERT_PREFIX = "&8[&7Frequency&8] ";
+    public AlertManager(Check<?> check) {
+        this.check = check;
+    }
+    private final String broadcast = ColorUtil.format("&8[&7Frequency+&8] &a%s &7was found using an unfair advantage and was removed from the network.");
 
     private final List<Long> alerts = Lists.newArrayList();
 
@@ -40,7 +40,7 @@ public final class AlertManager {
         final int threshold = check.getThreshold();
 
         final String alert = data == "" ? DARK_GRAY + "[" + GRAY + "Frequency+" + DARK_GRAY + "] " + GREEN + player.getName() + GRAY + " failed " + DARK_GREEN +
-                check.getCheckName() + GOLD + "[" + GRAY + "VL" + GREEN + violations + GOLD + "]" : DARK_GRAY + "[" + GRAY + "Frequency+" + DARK_GRAY + "] " +
+                check.getCheckName() + GOLD + " [" + GRAY + "VL" + GREEN + violations + GOLD + "]" : DARK_GRAY + "[" + GRAY + "Frequency+" + DARK_GRAY + "] " +
                 GREEN + player.getName() + GRAY + " failed " + DARK_GREEN + check.getCheckName() + GOLD + " [" + GRAY + "VL " + GREEN + violations + GOLD + "]" +
                 GRAY + ", " + data;
         final String message = String.format(broadcast, player.getName());
@@ -58,6 +58,7 @@ public final class AlertManager {
                         .forEach(send -> {
                             send.sendMessage(alert);
                         }));
+
     }
 
     public String getAlert(String name, String checkName, int violations, String data) {

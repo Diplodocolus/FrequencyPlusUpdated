@@ -1,14 +1,17 @@
 package xyz.elevated.frequency.data.impl;
 
-import lombok.RequiredArgsConstructor;
 import xyz.elevated.frequency.data.PlayerData;
 
 import java.util.Map;
 import java.util.Optional;
 
-@RequiredArgsConstructor
+
 public final class ConnectionManager {
     private final PlayerData playerData;
+
+    public ConnectionManager(PlayerData playerData) {
+        this.playerData = playerData;
+    }
 
     public void onTransaction(final short actionNumber, final long now) {
         final Optional<Long> entry = this.getTransactionTime(actionNumber);

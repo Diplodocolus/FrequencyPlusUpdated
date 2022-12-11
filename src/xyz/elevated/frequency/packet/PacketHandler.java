@@ -3,7 +3,6 @@ package xyz.elevated.frequency.packet;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketListenerPlayIn;
 import net.minecraft.server.v1_8_R3.PacketListenerPlayOut;
@@ -12,10 +11,13 @@ import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.processor.impl.IncomingPacketProcessor;
 import xyz.elevated.frequency.processor.impl.OutgoingPacketProcessor;
 
-@RequiredArgsConstructor
 public final class PacketHandler extends ChannelDuplexHandler {
 
     private final PlayerData playerData;
+
+    public PacketHandler(PlayerData playerData) {
+        this.playerData = playerData;
+    }
 
     @Override
     public void write(final ChannelHandlerContext channelHandlerContext, final Object object, final ChannelPromise channelPromise) throws Exception {

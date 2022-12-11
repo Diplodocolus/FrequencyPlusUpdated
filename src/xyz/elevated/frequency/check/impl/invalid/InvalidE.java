@@ -40,7 +40,9 @@ public final class InvalidE extends PositionCheck {
 
             if (offsetH - attributeSpeed > 1e-12 && offsetH > 0.1 && attributeSpeed > 0.075) {
                 if (++buffer > 5) {
-                    fail();
+                    boolean attmode = offsetH > attributeSpeed ? true : false;
+                    fail("tried to use speed exploits, " +
+                            (attmode ? "offsetH=(" + offsetH +"), offsetY=(" + offsetY + ")" : "attriable=(" + attributeSpeed + ")"));
                 }
             } else {
                 buffer = 0;

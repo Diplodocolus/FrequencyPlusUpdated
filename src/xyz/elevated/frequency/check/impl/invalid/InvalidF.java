@@ -25,7 +25,7 @@ public final class InvalidF extends PositionCheck {
         final Location to = positionUpdate.getTo();
 
         final Player player = playerData.getBukkitPlayer();
-        final EntityPlayer entityPlayer = NmsUtil.getEntityPlayer(playerData);
+        final EntityPlayer entityPlayer = NmsUtil.INSTANCE.getEntityPlayer(playerData);
 
         final double deltaY = to.getY() - from.getY();
 
@@ -42,7 +42,11 @@ public final class InvalidF extends PositionCheck {
         final boolean exempt = this.isExempt(ExemptType.VELOCITY, ExemptType.TELEPORTING);
         final boolean invalid = deltaY > expectedJumpMotion && !ground && !step;
 
-        if (invalid && !exempt) fail();
-        if (step && deltaY > 0.6F && !exempt) fail();
+        if (invalid && !exempt) {
+            fail("tried to high jump, deltaY=(" + deltaY + "), ground=(" + (ground ? "true" : "false") + "), step=(" + (step ? "true" : "false")+ ")");
+        }
+        if (step && deltaY > 0.6F && !exempt) {
+            fail("tried to step, deltaY=(" + deltaY + ")");
+        }
     }
 }

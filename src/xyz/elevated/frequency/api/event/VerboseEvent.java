@@ -1,6 +1,5 @@
 package xyz.elevated.frequency.api.event;
 
-import lombok.Builder;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import xyz.elevated.frequency.api.EventType;

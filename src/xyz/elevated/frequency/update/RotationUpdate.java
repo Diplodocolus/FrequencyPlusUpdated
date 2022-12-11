@@ -1,10 +1,21 @@
 package xyz.elevated.frequency.update;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@AllArgsConstructor @Getter @Setter
+@Getter @Setter
 public final class RotationUpdate {
     private float deltaYaw, deltaPitch;
+
+    public RotationUpdate(float deltaYaw, float deltaPitch) {
+        this.deltaYaw = deltaYaw;
+        this.deltaPitch = deltaPitch;
+    }
+
+    public float getDeltaYaw() {
+        return deltaYaw;
+    }
+    public float getDeltaPitch() {
+        return deltaPitch;
+    }
 }

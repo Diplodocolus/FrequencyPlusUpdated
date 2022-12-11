@@ -67,5 +67,17 @@ public final class VelocityManager {
             this.horizontal = horizontal;
             this.vertical = vertical;
         }
+
+        public long getCreationTime() {
+            return creationTime;
+        }
+
+        public double getHorizontal() {
+            return horizontal;
+        }
+
+        public double getVertical() {
+            return vertical;
+        }
     }
 }

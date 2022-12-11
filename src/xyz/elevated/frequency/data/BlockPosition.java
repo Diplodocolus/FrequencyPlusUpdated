@@ -18,6 +18,6 @@ public final class BlockPosition {
     }
 
     public Block getBlock(final World world) {
-        return NmsUtil.getBlock(new Location(world, x, y, z));
+        return NmsUtil.INSTANCE.getBlock(new Location(world, x, y, z));
     }
 }

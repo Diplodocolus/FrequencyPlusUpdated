@@ -27,7 +27,7 @@ public final class PlayerListener implements Listener {
         final PlayerData playerData = Frequency.INSTANCE.getPlayerDataManager().getData(player);
 
         final int ticks = playerData.getTicks().get();
-        final ChannelPipeline channelPipeline = NmsUtil.getPlayerPipeline(player);
+        final ChannelPipeline channelPipeline = NmsUtil.INSTANCE.getPlayerPipeline(player);
 
         playerData.getActionManager().onTeleport();
         playerData.getJoined().set(ticks);
@@ -55,7 +55,7 @@ public final class PlayerListener implements Listener {
     @EventHandler
     public void onQuit(final PlayerQuitEvent event) {
         final Player player = event.getPlayer();
-        final ChannelPipeline channelPipeline = NmsUtil.getPlayerPipeline(player);
+        final ChannelPipeline channelPipeline = NmsUtil.INSTANCE.getPlayerPipeline(player);
 
         /*
         * We need to remove the player's pipeline in the case it does not get auto-removed

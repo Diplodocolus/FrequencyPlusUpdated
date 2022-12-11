@@ -2,7 +2,6 @@ package xyz.elevated.frequency.data.impl;
 
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -19,11 +18,16 @@ import xyz.elevated.frequency.observable.Observable;
 import xyz.elevated.frequency.update.PositionUpdate;
 
 import java.util.Arrays;
+import java.util.List;
 
-@RequiredArgsConstructor @Getter
+@Getter
 public final class PositionManager {
     @Getter(AccessLevel.NONE)
     private final PlayerData playerData;
+
+    public PositionManager(PlayerData playerData) {
+        this.playerData = playerData;
+    }
 
     @Getter(AccessLevel.NONE)
     private double lastPosX, lastPosY, lastPosZ;
@@ -101,5 +105,25 @@ public final class PositionManager {
         this.touchingHalfBlock.set(touchingHalfBlock);
         this.touchingClimbable.set(touchingClimbable);
         this.touchingIllegalBlock.set(touchingIllegalBlock);
+    }
+
+    public Observable<Object[]> getNearbyEntities() {
+        return nearbyEntities;
+    }
+
+    public Observable<Boolean> getTouchingClimbable() {
+        return touchingClimbable;
+    }
+
+    public Observable<Boolean> getTouchingLiquid() {
+        return touchingLiquid;
+    }
+
+    public Observable<Boolean> getTouchingAir() {
+        return touchingAir;
+    }
+
+    public Observable<Boolean> getTouchingHalfBlock() {
+        return touchingHalfBlock;
     }
 }

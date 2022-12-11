@@ -1,16 +1,21 @@
 package xyz.elevated.frequency.data.impl;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.observable.Observable;
 import xyz.elevated.frequency.util.EvictingList;
 import xyz.elevated.frequency.util.MathUtil;
 
-@Getter @RequiredArgsConstructor
+import java.util.List;
+
+@Getter
 public final class ActionManager {
     private final PlayerData playerData;
+
+    public ActionManager(PlayerData playerData) {
+        this.playerData = playerData;
+    }
     private final EvictingList<Integer> clicks = new EvictingList<>(10);
 
     /*
@@ -112,5 +117,41 @@ public final class ActionManager {
 
     public void onBukkitDig() {
         this.lastDig = playerData.getTicks().get();
+    }
+
+    public Observable<Boolean> getDelayed() {
+        return delayed;
+    }
+
+    public Observable<Boolean> getTeleported() {
+        return teleported;
+    }
+
+    public int getLastAttack() {
+        return lastAttack;
+    }
+
+    public Observable<Boolean> getAttacking() {
+        return attacking;
+    }
+
+    public int getLastPlace() {
+        return lastPlace;
+    }
+
+    public Observable<Boolean> getDigging() {
+        return digging;
+    }
+
+    public Observable<Boolean> getPlacing() {
+        return placing;
+    }
+
+    public Observable<Boolean> getSteer() {
+        return steer;
+    }
+
+    public Observable<Boolean> getSwinging() {
+        return swinging;
     }
 }

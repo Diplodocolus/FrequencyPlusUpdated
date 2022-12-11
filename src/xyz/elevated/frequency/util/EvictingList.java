@@ -23,4 +23,8 @@ public final class EvictingList<T> extends LinkedList<T> {
         if (size() >= getMaxSize()) removeFirst();
         return super.add(t);
     }
+
+    public int getMaxSize() {
+        return maxSize;
+    }
 }

@@ -1,6 +1,7 @@
 package xyz.elevated.frequency.check.impl.fly;
 
 import org.bukkit.Location;
+import xyz.elevated.frequency.FrequencyPlugin;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PositionCheck;
 import xyz.elevated.frequency.data.PlayerData;
@@ -20,6 +21,10 @@ public final class FlyC extends PositionCheck {
 
     @Override
     public void process(final PositionUpdate positionUpdate) {
+        if (!FrequencyPlugin.getFrequencyConfig().getBoolean("checks.fly.enable") &&
+                !FrequencyPlugin.getFrequencyConfig().getBoolean("checks.fly.modules.horizonboost")) {
+            return;
+        }
         final Location from = positionUpdate.getFrom();
         final Location to = positionUpdate.getTo();
 
@@ -39,7 +44,11 @@ public final class FlyC extends PositionCheck {
             if (ticks > 6 && horizontalDistance > 0.1 && (deltaY == 0.0 || acceleration == 0.0)) {
                 buffer += 0.25;
 
-                if (buffer > 0.75) fail();
+                if (buffer > 0.75) {
+                    fail("tried to horizontal speed modification, distance=(" + horizontalDistance + "), deltaY=(" + deltaY + "), accel=(" +
+                            acceleration + "), ticks=(" + ticks + "), buffer=(" + buffer + "), lastDeltaY=(" + lastDeltaY + ")");
+                    lagback(FrequencyPlugin.getFrequencyConfig().getBoolean("checks.fly.lagback"));
+                }
             } else {
                 buffer = Math.max(buffer - 0.12, 0.0);
             }

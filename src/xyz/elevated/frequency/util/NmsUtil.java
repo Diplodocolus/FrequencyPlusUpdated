@@ -1,7 +1,7 @@
 package xyz.elevated.frequency.util;
 
 import io.netty.channel.ChannelPipeline;
-import lombok.experimental.UtilityClass;
+import lombok.UtilityClass;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -15,6 +15,7 @@ import xyz.elevated.frequency.data.PlayerData;
 
 @UtilityClass
 public class NmsUtil {
+    public static final NmsUtil INSTANCE = new NmsUtil();
 
     public EntityPlayer getEntityPlayer(final Player player) {
         return ((CraftPlayer) player).getHandle();
@@ -35,13 +36,13 @@ public class NmsUtil {
     }
 
     public PlayerConnection getPlayerConnection(final PlayerData playerData) {
-        final Player player = playerData.getBukkitPlayer();
+        final Player player = playerData.getPlayer();
 
         return getPlayerConnection(player);
     }
 
-    public PlayerConnection getPlayerConnection(final Player player) {
-        final EntityPlayer entityPlayer = getEntityPlayer(player);
+    public static final PlayerConnection getPlayerConnection(final Player player) {
+        final EntityPlayer entityPlayer = new NmsUtil().getEntityPlayer(player);
 
         return entityPlayer.playerConnection;
     }
@@ -56,7 +57,7 @@ public class NmsUtil {
         return !world.isClientSide && world.isLoaded(new BlockPosition(loc.getBlockX(), 0, loc.getBlockZ()));
     }
 
-    public Entity getEntity(org.bukkit.entity.Entity entity) {
+    public static Entity getEntity(org.bukkit.entity.Entity entity) {
         return ((CraftEntity)entity).getHandle();
     }
 

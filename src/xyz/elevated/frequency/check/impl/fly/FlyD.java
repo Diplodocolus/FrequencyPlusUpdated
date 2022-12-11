@@ -2,6 +2,7 @@ package xyz.elevated.frequency.check.impl.fly;
 
 import org.bukkit.Location;
 import org.bukkit.potion.PotionEffectType;
+import xyz.elevated.frequency.FrequencyPlugin;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PositionCheck;
 import xyz.elevated.frequency.data.PlayerData;
@@ -21,6 +22,10 @@ public final class FlyD extends PositionCheck {
 
     @Override
     public void process(final PositionUpdate positionUpdate) {
+        if (!FrequencyPlugin.getFrequencyConfig().getBoolean("checks.fly.enable") &&
+                !FrequencyPlugin.getFrequencyConfig().getBoolean("checks.fly.modules.v_fly.check_protocol2")) {
+            return;
+        }
         final Location from = positionUpdate.getFrom();
         final Location to = positionUpdate.getTo();
 
@@ -46,7 +51,8 @@ public final class FlyD extends PositionCheck {
                     buffer += 0.25;
 
                     if (buffer > 1.5) {
-                        fail();
+                        fail("tried to veritical fly, ticks=(" + ticks + "), threshold=(" + threshold + "), offset=("  + offset + "), buffer=(" + buffer + ")");
+                        lagback(FrequencyPlugin.getFrequencyConfig().getBoolean("checks.fly.lagback"));
                     }
                 } else {
                     buffer = 0.0;

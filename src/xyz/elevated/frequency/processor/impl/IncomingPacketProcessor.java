@@ -1,11 +1,14 @@
 package xyz.elevated.frequency.processor.impl;
 
 import net.minecraft.server.v1_8_R3.*;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
+import xyz.elevated.frequency.check.type.BlockCheck;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.BoundingBox;
 import xyz.elevated.frequency.data.PlayerData;
+import xyz.elevated.frequency.data.impl.BlockManager;
 import xyz.elevated.frequency.data.impl.PositionManager;
 import xyz.elevated.frequency.data.impl.RotationManager;
 import xyz.elevated.frequency.processor.type.Processor;
@@ -18,7 +21,38 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
 
     @Override
     public void process(final PlayerData playerData, final Packet<PacketListenerPlayIn> packet) {
-        if (packet instanceof PacketPlayInFlying) {
+        if (packet instanceof PacketPlayInFlying && packet instanceof PacketPlayInBlockPlace) {
+            final WrappedPlayInFlying wrapper = new WrappedPlayInFlying(packet);
+            final WrappedPlayInBlockPlace wrapperPlace = new WrappedPlayInBlockPlace(packet);
+
+            final double posX = wrapper.getX();
+            final double posY = wrapper.getY();
+            final double posZ = wrapper.getZ();
+
+            final float yaw = wrapper.getYaw();
+            final float pitch = wrapper.getPitch();
+
+            final boolean hasPos = wrapper.hasPos();
+            final boolean hasLook = wrapper.hasLook();
+            final boolean onGround = wrapper.onGround();
+
+            if (hasPos && hasLook) {
+                final BlockManager blockManager = playerData.getBlockManager();
+                final World world = playerData.getBukkitPlayer().getWorld();
+                final Location location = new Location(world, posX, posY, posZ, yaw, pitch);
+                blockManager.handle(yaw, pitch, playerData, location, onGround);
+            }
+
+            playerData.getActionManager().onPlace();
+            playerData.getVelocityManager().apply();
+            playerData.getActionManager().onFlying();
+            playerData.getCheckManager().getChecks().stream()
+                    .filter(BlockCheck.class::isInstance)
+                    .forEach(check -> check.process(wrapper));
+            playerData.getCheckManager().getChecks().stream()
+                    .filter(PacketCheck.class::isInstance)
+                    .forEach(check -> check.process(wrapper));
+        } else if (packet instanceof PacketPlayInFlying) {
             final WrappedPlayInFlying wrapper = new WrappedPlayInFlying(packet);
 
             final double posX = wrapper.getX();
@@ -56,7 +90,7 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
             if (wrapper.getAction() == PacketPlayInUseEntity.EnumEntityUseAction.ATTACK) {
                 playerData.getActionManager().onAttack();
 
-                Entity entity = wrapper.getTarget(NmsUtil.getWorld(playerData.getBukkitPlayer().getWorld()));
+                Entity entity = wrapper.getTarget(NmsUtil.INSTANCE.getWorld(playerData.getBukkitPlayer().getWorld()));
                 playerData.getTarget().set(entity);
             }
 

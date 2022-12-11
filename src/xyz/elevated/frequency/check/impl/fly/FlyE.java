@@ -2,6 +2,7 @@ package xyz.elevated.frequency.check.impl.fly;
 
 import org.bukkit.Location;
 import org.bukkit.potion.PotionEffectType;
+import xyz.elevated.frequency.FrequencyPlugin;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PositionCheck;
 import xyz.elevated.frequency.data.PlayerData;
@@ -21,6 +22,10 @@ public final class FlyE extends PositionCheck {
 
     @Override
     public void process(final PositionUpdate positionUpdate) {
+        if (!FrequencyPlugin.getFrequencyConfig().getBoolean("checks.fly.enable") &&
+                !FrequencyPlugin.getFrequencyConfig().getBoolean("checks.fly.modules.longtime_noground")) {
+            return;
+        }
         // Get the locations from the position update
         final Location from = positionUpdate.getFrom();
         final Location to = positionUpdate.getTo();
@@ -48,7 +53,11 @@ public final class FlyE extends PositionCheck {
 
             // Normally I would avoid using the sqrt as its quite heavy on performance.
             if (Math.sqrt(distanceGround) > threshold) {
-                if (++movements > 5) fail();
+                if (++movements > 5) {
+                    fail("flying with noground, distanceGround=(" + distanceGround + "), DG_sqrt=(" + Math.sqrt(distanceGround) + "), movement=(" + movements +
+                            "), threshold=(" + threshold + "), deltaY=(" + deltaY + "), distanceH=(" + distanceH + "), distanceY=(" + distanceY + ")");
+                    lagback(FrequencyPlugin.getFrequencyConfig().getBoolean("checks.fly.lagback"));
+                }
             } else {
                 movements = 0;
             }

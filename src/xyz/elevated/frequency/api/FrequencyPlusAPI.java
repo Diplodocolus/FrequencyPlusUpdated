@@ -1,5 +1,6 @@
 package xyz.elevated.frequency.api;
 
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -72,5 +73,34 @@ public final class FrequencyPlusAPI implements IFrequencyPlusAPI {
     @Override
     public final Collection<Check> getCheckList() {
         return CheckManager.INSTANCE.getChecks();
+    }
+
+    /**
+     * Get a Frequency Class
+     *
+     * @param clazz Class
+     * @return Frequency
+     */
+    @Override
+    public Frequency getFrequencyPlus(Class<?> clazz) {
+        return Frequency.INSTANCE;
+    }
+
+    @Getter
+    public static FrequencyPlusAPI frequencyPlusAPI;
+
+    @Override
+    public void registerAPI() {
+        frequencyPlusAPI = this;
+    }
+
+    @Override
+    public void unregisterAPI() {
+        frequencyPlusAPI = null;
+    }
+
+    @Override
+    public void disablePlugin() {
+        Bukkit.getPluginManager().disablePlugin(Frequency.INSTANCE.getPlugin());
     }
 }

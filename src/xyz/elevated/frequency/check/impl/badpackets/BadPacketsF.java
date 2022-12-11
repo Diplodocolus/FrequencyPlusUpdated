@@ -1,5 +1,6 @@
 package xyz.elevated.frequency.check.impl.badpackets;
 
+import xyz.elevated.frequency.FrequencyPlugin;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.PlayerData;
@@ -16,6 +17,10 @@ public final class BadPacketsF extends PacketCheck {
 
     @Override
     public void process(final Object object) {
+        if (!FrequencyPlugin.getFrequencyConfig().getBoolean("checks.badpackets.protocol.check_protocol2") &&
+                !FrequencyPlugin.getFrequencyConfig().getBoolean("checks.badpackets.enable")) {
+            return;
+        }
         if (object instanceof WrappedPlayInHeldItemSlot) {
             final WrappedPlayInHeldItemSlot wrapper = (WrappedPlayInHeldItemSlot) object;
 

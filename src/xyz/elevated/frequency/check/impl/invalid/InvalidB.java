@@ -21,7 +21,7 @@ public final class InvalidB extends PositionCheck {
     @Override
     public void process(final PositionUpdate positionUpdate) {
         final PositionManager positionManager = playerData.getPositionManager();
-        final EntityPlayer entityPlayer = NmsUtil.getEntityPlayer(playerData);
+        final EntityPlayer entityPlayer = NmsUtil.INSTANCE.getEntityPlayer(playerData);
 
         // Get the locations from the position update
         final Location from = positionUpdate.getFrom();
@@ -58,7 +58,9 @@ public final class InvalidB extends PositionCheck {
             final double horizontalDistance = MathUtil.magnitude(deltaX, deltaZ);
 
             // Making sure the player is actually moving
-            if (horizontalDistance > 0.1) fail();
+            if (horizontalDistance > 0.1) {
+                fail("tried to hclip, h=(" + horizontalDistance + "), deltaY=(" + deltaY + ")");
+            }
         }
     }
 }

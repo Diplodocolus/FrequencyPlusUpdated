@@ -1,5 +1,6 @@
 package xyz.elevated.frequency.check.impl.invaliddirection;
 
+import xyz.elevated.frequency.FrequencyPlugin;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.PlayerData;
@@ -14,6 +15,10 @@ public final class InvalidDirection extends PacketCheck {
 
     @Override
     public void process(final Object object) {
+        if (!FrequencyPlugin.getFrequencyConfig().getBoolean("checks.invalid.direction.enable")) {
+            return;
+        }
+
         if (object instanceof WrappedPlayInFlying) {
             final WrappedPlayInFlying wrapper = (WrappedPlayInFlying) object;
 
@@ -27,7 +32,8 @@ public final class InvalidDirection extends PacketCheck {
                 final float threshold = playerData.getPositionManager().getTouchingClimbable().get() ? 91.11f : 90.f;
 
                 if (pitch > threshold) {
-                    fail();
+                    fail("pitch is infinite, pitch=(" + pitch + "), threshold=(" + threshold + ")");
+                    lagback(FrequencyPlugin.getFrequencyConfig().getBoolean("checks.invalid.direction.lagback"));
                 }
             }
         }

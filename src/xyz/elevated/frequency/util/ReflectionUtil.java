@@ -1,13 +1,13 @@
 package xyz.elevated.frequency.util;
 
-import lombok.experimental.UtilityClass;
+import lombok.UtilityClass;
 import lombok.val;
 import net.minecraft.server.v1_8_R3.Packet;
 import java.lang.reflect.Field;
 
 @UtilityClass
 public class ReflectionUtil {
-
+    public static final ReflectionUtil INSTANCE = new ReflectionUtil();
     /**
      *
      * @param object - The object you want to grab and modify the declared field from

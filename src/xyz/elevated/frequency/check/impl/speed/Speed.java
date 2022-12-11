@@ -6,6 +6,8 @@ import net.minecraft.server.v1_8_R3.MathHelper;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
+import xyz.elevated.frequency.Frequency;
+import xyz.elevated.frequency.FrequencyPlugin;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PositionCheck;
 import xyz.elevated.frequency.data.PlayerData;
@@ -34,13 +36,16 @@ public final class Speed extends PositionCheck {
 
     @Override
     public void process(final PositionUpdate positionUpdate) {
+        if (!FrequencyPlugin.getFrequencyConfig().getBoolean("checks.speed.enable")) {
+            return;
+        }
         // Get the location update from the position update
         final Location from = positionUpdate.getFrom();
         final Location to = positionUpdate.getTo();
 
         // Get the entity player from the NMS util
         final Player player = playerData.getBukkitPlayer();
-        final EntityPlayer entityPlayer = NmsUtil.getEntityPlayer(playerData);
+        final EntityPlayer entityPlayer = NmsUtil.INSTANCE.getEntityPlayer(playerData);
 
         // Get the pos deltas
         final double deltaX = to.getX() - from.getX();
@@ -100,12 +105,12 @@ public final class Speed extends PositionCheck {
         final double movementSpeed = (horizontalDistance - lastHorizontalDistance) / attributeSpeed;
 
         // If thr movement speed is greater than the threshold and the player isn't exempt, fail
-        if (movementSpeed > 1.0 && !exempt) {
+        if (movementSpeed > FrequencyPlugin.getFrequencyConfig().getDouble("checks.speed.max_speed") && !exempt) {
             buffer = Math.min(500, buffer + 10); //We do this to prevent integer overflow.
 
             if (buffer > 40) {
                 fail("player speed is faster than normal, speed=(" + movementSpeed + "), buffer=(" + buffer + ")");
-
+                lagback(FrequencyPlugin.getFrequencyConfig().getBoolean("checks.speed.lagback"));
                 buffer /= 2;
             }
         } else {

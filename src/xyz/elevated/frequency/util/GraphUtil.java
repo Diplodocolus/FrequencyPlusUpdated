@@ -1,23 +1,32 @@
 package xyz.elevated.frequency.util;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.UtilityClass;
 import org.bukkit.ChatColor;
 
 import java.util.List;
 
-@UtilityClass
 public class GraphUtil {
-
+    public static final GraphUtil INSTANCE = new GraphUtil();
     @Getter
     @Setter
-    @RequiredArgsConstructor
-
     public class GraphResult {
         private final String graph;
         private final int positives, negatives;
+
+        public GraphResult(String graph, int positives, int negatives) {
+            this.graph = graph;
+            this.positives = positives;
+            this.negatives = negatives;
+        }
+
+        public int getNegatives() {
+            return negatives;
+        }
+
+        public int getPositives() {
+            return positives;
+        }
     }
 
     public GraphResult getGraph(List<Double> values) {

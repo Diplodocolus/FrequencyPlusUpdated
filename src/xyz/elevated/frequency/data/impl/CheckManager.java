@@ -22,6 +22,7 @@ import xyz.elevated.frequency.check.impl.pingspoof.PingSpoofA;
 import xyz.elevated.frequency.check.impl.pingspoof.PingSpoofB;
 import xyz.elevated.frequency.check.impl.scaffold.ScaffoldA;
 import xyz.elevated.frequency.check.impl.scaffold.ScaffoldB;
+import xyz.elevated.frequency.check.impl.scaffold.ScaffoldC;
 import xyz.elevated.frequency.check.impl.speed.Speed;
 import xyz.elevated.frequency.check.impl.timer.TimerA;
 import xyz.elevated.frequency.data.PlayerData;
@@ -72,6 +73,7 @@ public final class CheckManager {
                 .put(BadPacketsP.class, new BadPacketsP(playerData))
                 .put(BadPacketsQ.class, new BadPacketsQ(playerData))
                 .put(BadPacketsR.class, new BadPacketsR(playerData))
+                .put(BadPacketsS.class, new BadPacketsS(playerData))
                 .put(InvalidA.class, new InvalidA(playerData))
                 .put(InvalidB.class, new InvalidB(playerData))
                 .put(InvalidC.class, new InvalidC(playerData))
@@ -102,6 +104,7 @@ public final class CheckManager {
                 .put(PingSpoofB.class, new PingSpoofB(playerData))
                 .put(ScaffoldA.class, new ScaffoldA(playerData))
                 .put(ScaffoldB.class, new ScaffoldB(playerData))
+                .put(ScaffoldC.class, new ScaffoldC(playerData))
                 .build();
     }
 
