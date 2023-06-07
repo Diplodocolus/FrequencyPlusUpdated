@@ -19,7 +19,7 @@ import java.util.Set;
 @UtilityClass
 public class MathUtil {
 
-    public final double EXPANDER = Math.pow(2, 24);
+    public static final double EXPANDER = Math.pow(2, 24);
 
     /**
      *
@@ -28,7 +28,7 @@ public class MathUtil {
      *
      * @See - https://en.wikipedia.org/wiki/Variance
      */
-    public double getVariance(final Collection<? extends Number> data) {
+    public static double getVariance(final Collection<? extends Number> data) {
         int count = 0;
 
         double sum = 0.0;
@@ -52,7 +52,7 @@ public class MathUtil {
         return variance / count;
     }
 
-    public int getPingInTicks(long ping) {
+    public static int getPingInTicks(long ping) {
         return MathHelper.floor(ping / 50.);
     }
 
@@ -63,7 +63,7 @@ public class MathUtil {
      * @See - https://en.wikipedia.org/wiki/Standard_deviation
      * @See - https://en.wikipedia.org/wiki/Variance
      */
-    public double getStandardDeviation(final Collection<? extends Number> data) {
+    public static double getStandardDeviation(final Collection<? extends Number> data) {
         final double variance = getVariance(data);
 
         // The standard deviation is the square root of variance. (sqrt(s^2))
@@ -77,7 +77,7 @@ public class MathUtil {
      *
      * @See - https://en.wikipedia.org/wiki/Skewness
      */
-    public double getSkewness(final Collection<? extends Number> data) {
+    public static double getSkewness(final Collection<? extends Number> data) {
         double sum = 0;
         int count = 0;
 
@@ -130,7 +130,7 @@ public class MathUtil {
      * @return - A pair of the high and low outliers
      * @See - https://en.wikipedia.org/wiki/Outlier
      */
-    public Pair<List<Double>, List<Double>> getOutliers(final Collection<? extends Number> collection) {
+    public static Pair<List<Double>, List<Double>> getOutliers(final Collection<? extends Number> collection) {
         final List<Double> values = new ArrayList<>();
 
         for (final Number number : collection) {
@@ -163,7 +163,7 @@ public class MathUtil {
      *
      * @See - https://en.wikipedia.org/wiki/Kurtosis
      */
-    public double getKurtosis(final Collection<? extends Number> data) {
+    public static double getKurtosis(final Collection<? extends Number> data) {
         double sum = 0.0;
         int count = 0;
 
@@ -197,7 +197,7 @@ public class MathUtil {
      *
      * @See - https://en.wikipedia.org/wiki/Median
      */
-    private double getMedian(final List<Double> data) {
+    private static double getMedian(final List<Double> data) {
         if (data.size() % 2 == 0) {
             return (data.get(data.size() / 2) + data.get(data.size() / 2 - 1)) / 2;
         } else {
@@ -211,7 +211,7 @@ public class MathUtil {
      * @param previous - The previous value
      * @return - The GCD of those two values
      */
-    public long getGcd(final long current, final long previous) {
+    public static long getGcd(final long current, final long previous) {
         return (previous <= 16384L) ? current : getGcd(previous, current % previous);
     }
 
@@ -220,7 +220,7 @@ public class MathUtil {
      * @param to - The current location
      * @return - The horizontal distance using (x^2 + z^2)
      */
-    public double getMagnitude(final Location from, final Location to) {
+    public static double getMagnitude(final Location from, final Location to) {
         if (from.getWorld() != to.getWorld()) return 0.0;
 
         final Vector a = to.toVector();
@@ -237,7 +237,7 @@ public class MathUtil {
      * @param effect - The potion effect you want to get the amplifier of
      * @return - The amplifier added by one to make things more readable
      */
-    public int getPotionLevel(final Player player, final PotionEffectType effect) {
+    public static int getPotionLevel(final Player player, final PotionEffectType effect) {
         final int effectId = effect.getId();
 
         if (!player.hasPotionEffect(effect)) return 0;
@@ -250,13 +250,13 @@ public class MathUtil {
      * @param data - The sample of clicks you want to get the cps from
      * @return - The cps using the average as a method of calculation
      */
-    public double getCps(final Collection<? extends Number> data) {
+    public static double getCps(final Collection<? extends Number> data) {
         final double average = data.stream().mapToDouble(Number::doubleValue).average().orElse(0.0);
 
         return 20 / average;
     }
 
-    public double getSpeedXZ(Location from, Location to) {
+    public static double getSpeedXZ(Location from, Location to) {
         double xDiff = Math.abs(from.getX() - to.getX());
         double zDiff = Math.abs(from.getZ() - to.getZ());
         return xDiff > zDiff ? xDiff : zDiff;

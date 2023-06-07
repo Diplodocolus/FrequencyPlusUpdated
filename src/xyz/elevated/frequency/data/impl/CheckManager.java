@@ -23,7 +23,8 @@ import xyz.elevated.frequency.check.impl.pingspoof.PingSpoofB;
 import xyz.elevated.frequency.check.impl.scaffold.ScaffoldA;
 import xyz.elevated.frequency.check.impl.scaffold.ScaffoldB;
 import xyz.elevated.frequency.check.impl.scaffold.ScaffoldC;
-import xyz.elevated.frequency.check.impl.speed.Speed;
+import xyz.elevated.frequency.check.impl.scaffold.ScaffoldD;
+import xyz.elevated.frequency.check.impl.speed.SpeedA;
 import xyz.elevated.frequency.check.impl.timer.TimerA;
 import xyz.elevated.frequency.data.PlayerData;
 
@@ -96,7 +97,7 @@ public final class CheckManager {
                 .put(InventoryA.class, new InventoryA(playerData))
                 .put(InventoryB.class, new InventoryB(playerData))
                 .put(TimerA.class, new TimerA(playerData))
-                .put(Speed.class, new Speed(playerData))
+                .put(SpeedA.class, new SpeedA(playerData))
                 .put(JesusA.class, new JesusA(playerData))
                 .put(InvalidPosition.class, new InvalidPosition(playerData))
                 .put(InvalidDirection.class, new InvalidDirection(playerData))
@@ -105,6 +106,7 @@ public final class CheckManager {
                 .put(ScaffoldA.class, new ScaffoldA(playerData))
                 .put(ScaffoldB.class, new ScaffoldB(playerData))
                 .put(ScaffoldC.class, new ScaffoldC(playerData))
+                .put(ScaffoldD.class, new ScaffoldD(playerData))
                 .build();
     }
 

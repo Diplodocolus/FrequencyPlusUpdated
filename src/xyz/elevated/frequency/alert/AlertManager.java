@@ -20,7 +20,7 @@ public final class AlertManager {
     public AlertManager(Check<?> check) {
         this.check = check;
     }
-    private final String broadcast = ColorUtil.format("&8[&7Frequency+&8] &a%s &7was found using an unfair advantage and was removed from the network.");
+    private final String broadcast = ColorUtil.format("&8[&dFrequency&6+&8] &a%s &7has been removed from the network");
 
     private final List<Long> alerts = Lists.newArrayList();
 
@@ -39,13 +39,13 @@ public final class AlertManager {
         final int violations = (int) (alerts.stream().filter(violation -> violation + 9000L > System.currentTimeMillis()).count());
         final int threshold = check.getThreshold();
 
-        final String alert = data == "" ? DARK_GRAY + "[" + GRAY + "Frequency+" + DARK_GRAY + "] " + GREEN + player.getName() + GRAY + " failed " + DARK_GREEN +
-                check.getCheckName() + GOLD + " [" + GRAY + "VL" + GREEN + violations + GOLD + "]" : DARK_GRAY + "[" + GRAY + "Frequency+" + DARK_GRAY + "] " +
-                GREEN + player.getName() + GRAY + " failed " + DARK_GREEN + check.getCheckName() + GOLD + " [" + GRAY + "VL " + GREEN + violations + GOLD + "]" +
+        final String alert = data == "" ? DARK_GRAY + "[" + LIGHT_PURPLE + "Frequency" + GOLD + "+" + DARK_GRAY + "] " + DARK_PURPLE + player.getName() + GRAY + " failed " + DARK_PURPLE +
+                check.getCheckName() + GOLD + " [" + GRAY + "VL" + DARK_PURPLE + violations + GOLD + "]" : DARK_GRAY + "[" + LIGHT_PURPLE + "Frequency" + GOLD + "+" + DARK_GRAY + "] " +
+                GREEN + player.getName() + GRAY + " failed " + DARK_PURPLE + check.getCheckName() + GOLD + " [" + GRAY + "VL " + DARK_PURPLE + violations + GOLD + "]" +
                 GRAY + ", " + data;
         final String message = String.format(broadcast, player.getName());
         if (violations > threshold) {
-            //Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ban " + player.getName() + " [Frequency] Unfair Advantage");;
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tempban " + player.getName() + " 1h -s &8[&5Frequency&6+&8] &7Unfair Advantage.");
             Bukkit.broadcastMessage(message);
 
             alerts.clear();
@@ -64,11 +64,11 @@ public final class AlertManager {
     public String getAlert(String name, String checkName, int violations, String data) {
         String base = "";
         if (data == "") {
-            base = DARK_GRAY + "[" + GRAY + "Frequency+" + DARK_GRAY + "] " + GREEN + name + GRAY + " failed " + DARK_GREEN + checkName + GOLD + "[" +
-                GRAY + "VL" + GREEN + violations + GOLD + "]";
+            base = DARK_GRAY + "[" + LIGHT_PURPLE + "Frequency" + GOLD + "+" + DARK_GRAY + "] " + DARK_PURPLE + name + GRAY + " failed " + DARK_PURPLE + checkName + GOLD + "[" +
+                GRAY + "VL" + DARK_PURPLE + violations + GOLD + "]";
         } else {
-            base = DARK_GRAY + "[" + GRAY + "Frequency+" + DARK_GRAY + "] " + GREEN + name + GRAY + " failed " + DARK_GREEN + checkName + GOLD + "[" +
-                    GRAY + "VL" + GREEN + violations + GOLD + "]" + GRAY + ", " + data;
+            base = DARK_GRAY + "[" + LIGHT_PURPLE + "Frequency" + GOLD + "+" + DARK_GRAY + "] " + DARK_PURPLE + name + GRAY + " failed " + DARK_PURPLE + checkName + GOLD + "[" +
+                    GRAY + "VL" + DARK_PURPLE + violations + GOLD + "]" + GRAY + ", " + data;
         }
 
         return base;

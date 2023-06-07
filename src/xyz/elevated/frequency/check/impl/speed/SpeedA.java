@@ -17,13 +17,13 @@ import xyz.elevated.frequency.util.MathUtil;
 import xyz.elevated.frequency.util.NmsUtil;
 
 
-@CheckData(name = "Speed")
-public final class Speed extends PositionCheck {
+@CheckData(name = "Speed (A)")
+public final class SpeedA extends PositionCheck {
     private int buffer = 0;
     private double blockSlipperiness = 0.91;
     private double lastHorizontalDistance = 0.0;
 
-    public Speed(final PlayerData playerData) {
+    public SpeedA(final PlayerData playerData) {
         super(playerData);
     }
 

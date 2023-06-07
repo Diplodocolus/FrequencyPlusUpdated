@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import xyz.elevated.frequency.commands.FreqencyCommand;
 
 import java.io.IOException;
 
@@ -15,22 +16,8 @@ public final class FrequencyPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getCommand("frequency").setExecutor(new CommandExecutor() {
-            @Override
-            public boolean onCommand(CommandSender sender, Command cmd, String arg, String[] args) {
-                if (args.length > 0) {
-                    if (args[0].equalsIgnoreCase("reload")) {
-                        reloadConfig();
-                        sender.sendMessage(GREEN + "Success frequency reload!");
-                        return true;
-                    } else {
-                        sender.sendMessage(RED + "Are you mean, " + GRAY + "/frequencyplus reload" + RED +"? Frequency dont know " + GRAY + "/frequencyplus " +
-                                args[0] + RED + " command");
-                    }
-                }
-                return true;
-            }
-        });
+        getCommand("frequency").setExecutor(new FreqencyCommand());
+
         Frequency.INSTANCE.start(this);
         fileConfiguration = getConfig();
     }
