@@ -1,6 +1,5 @@
 name: Frequency+
-authors: [Elevated, Gson, bradleyw8_]
-version: 1.0
+authors: [Elevated, Gson, Diplodocolus]
 softdepend: [DiscordLib]
 main: xyz.elevated.frequency.FrequencyPlugin
 api-version: 1.8
